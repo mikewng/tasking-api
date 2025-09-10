@@ -5,9 +5,9 @@ namespace tasking_api.Main.Service.Contracts
 {
     public interface IBoardTaskService
     {
-        public Task<Result<BoardTask>> CreateTask(BoardTask task);
-        public Task<Result<BoardTask>> GetTaskById(Guid id);
-        public Task<Result<BoardTask>> UpdateTask(BoardTaskRequest taskBody);
-        public Task<Result<BoardTask>> DeleteTaskById(Guid id);
+        public Task<Result<BoardTask>> CreateTask(BoardTaskRequest taskRequest);
+        public Task<Result<BoardTask>> GetTask(Guid id);
+        public Task<Result<BoardTask>> UpdateTask(BoardTaskRequest taskRequest);
+        public Task<Result<BoardTask>> DeleteTask(Guid id);
     }
 }

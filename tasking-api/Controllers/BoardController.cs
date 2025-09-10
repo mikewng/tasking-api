@@ -19,9 +19,9 @@ namespace tasking_api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Result>> Create([FromBody] BoardRequest board)
+        public async Task<ActionResult<Result>> Create([FromBody] BoardRequest boardRequest)
         {
-            var res = await _boardService.CreateBoard(board.Name, board.Description);
+            var res = await _boardService.CreateBoard(boardRequest);
             if (!res.Success || res.Value == null)
             {
                 return Result.Fail("Could not create this new board");

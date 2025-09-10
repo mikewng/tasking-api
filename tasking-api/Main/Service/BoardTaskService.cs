@@ -16,11 +16,11 @@ namespace tasking_api.Main.Service
         {
             throw new NotImplementedException();
         }
-        public Task<Result<BoardTask>> GetTaskById(Guid id)
+        public Task<Result<BoardTask>> GetTask(Guid id)
         {
             throw new NotImplementedException();
         }
-        public Task<Result<BoardTask>> DeleteTaskById(Guid id)
+        public Task<Result<BoardTask>> DeleteTask(Guid id)
         {
             throw new NotImplementedException();
         }
