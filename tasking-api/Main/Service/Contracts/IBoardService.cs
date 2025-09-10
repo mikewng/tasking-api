@@ -6,7 +6,7 @@ namespace tasking_api.Main.Service.Contracts
     {
         public Task<Result<Board>> CreateBoard(string name, string description);
         public Task<Result<Board>> GetBoard(Guid id);
-        public Task<Result<Board>> UpdateBoardInfo(Board board);
+        public Task<Result<Board>> UpdateBoardInfo(Guid id, string name, string description);
         public Task<Result<Board>> DeleteBoard(Guid id);
     }
 }

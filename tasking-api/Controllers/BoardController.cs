@@ -7,12 +7,12 @@ namespace tasking_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TaskingController : ControllerBase
+    public class BoardController : ControllerBase
     {
-        private readonly ILogger<TaskingController> _logger;
+        private readonly ILogger<BoardController> _logger;
         private readonly IBoardService _boardService;
 
-        public TaskingController(ILogger<TaskingController> logger, IBoardService boardService)
+        public BoardController(ILogger<BoardController> logger, IBoardService boardService)
         {
             _logger = logger;
             _boardService = boardService;
@@ -43,9 +43,20 @@ namespace tasking_api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Result<Board>>> Update()
+        public async Task<ActionResult<Result>> Update([FromBody] BoardRequest board)
         {
-            throw new NotImplementedException();
+            if (board.Id == null)
+            {
+                return Result.Fail("Could not create this new board");
+            }
+
+            var res = await _boardService.UpdateBoardInfo(board.Id.Value, board.Name, board.Description);
+            if (!res.Success || res.Value == null)
+            {
+                return Result.Fail("Could not find board by given id.");
+            }
+
+            return Result.Ok();
         }
 
         [HttpDelete("{id:guid}", Name = "DeleteBoard")]
