@@ -1,4 +1,4 @@
-﻿namespace tasking_api.Main.Models.DTO
+﻿namespace tasking_api.Main.Models.DTO.Request
 {
     public class BoardRequest
     {

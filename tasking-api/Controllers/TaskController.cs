@@ -9,8 +9,8 @@ namespace tasking_api.Controllers
     {
         private readonly ILogger<BoardController> _logger;
         private readonly IBoardService _boardService;
-        private readonly ITaskService _taskService;
-        public TaskController(ILogger<BoardController> logger, IBoardService boardService, ITaskService taskService)
+        private readonly IBoardTaskService _taskService;
+        public TaskController(ILogger<BoardController> logger, IBoardService boardService, IBoardTaskService taskService)
         {
             _logger = logger;
             _boardService = boardService;
