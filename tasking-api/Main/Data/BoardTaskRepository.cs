@@ -57,5 +57,8 @@ namespace tasking_api.Main.Data
             _db.BoardTasks.Remove(task);
             return Task.CompletedTask;
         }
+
+        public Task<bool> ExistsAsync(Guid id, CancellationToken ct) =>
+            _db.Boards.AnyAsync(b => b.Id == id, ct);
     }
 }
