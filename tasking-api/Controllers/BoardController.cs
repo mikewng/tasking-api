@@ -18,7 +18,7 @@ namespace tasking_api.Controllers
             _boardService = boardService;
         }
 
-        [HttpPost]
+        [HttpPost("CreateBoard")]
         public async Task<ActionResult<Result>> Create([FromBody] BoardRequest boardRequest)
         {
             var res = await _boardService.CreateBoard(boardRequest);
@@ -30,7 +30,7 @@ namespace tasking_api.Controllers
             return Result.Ok();
         }
 
-        [HttpGet("{id:guid}", Name = "GetBoard")]
+        [HttpGet("GetBoard/{id:guid}", Name = "GetBoard")]
         public async Task<ActionResult<Result<Board>>> Get(Guid id)
         {
             var board = await _boardService.GetBoard(id);
@@ -42,7 +42,7 @@ namespace tasking_api.Controllers
             return Result<Board>.Ok(board.Value);
         }
 
-        [HttpPatch]
+        [HttpPatch("UpdateBoard")]
         public async Task<ActionResult<Result>> Update([FromBody] BoardRequest boardRequest)
         {
             if (boardRequest.Id == null)
@@ -59,7 +59,7 @@ namespace tasking_api.Controllers
             return Result.Ok();
         }
 
-        [HttpDelete("{id:guid}", Name = "DeleteBoard")]
+        [HttpDelete("DeleteBoard/{id:guid}", Name = "DeleteBoard")]
         public async Task<ActionResult<Result<Board>>> Delete(Guid id)
         {
             var board = await _boardService.DeleteBoard(id);

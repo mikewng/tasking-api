@@ -18,7 +18,7 @@ namespace tasking_api.Controllers
             _taskService = taskService;
         }
 
-        [HttpPost(Name = "CreateTask")]
+        [HttpPost("CreateTask", Name = "CreateTask")]
         public async Task<ActionResult<Result>> Create([FromBody] BoardTaskRequest taskRequest)
         {
             var res = await _taskService.CreateTask(taskRequest);
@@ -30,7 +30,7 @@ namespace tasking_api.Controllers
             return Result.Ok();
         }
 
-        [HttpGet("{id:guid}", Name = "GetTask")]
+        [HttpGet("GetTask/{id:guid}", Name = "GetTask")]
         public async Task<ActionResult<Result<BoardTask>>> Get(Guid taskId)
         {
             var task = await _taskService.GetTask(taskId);
@@ -42,7 +42,7 @@ namespace tasking_api.Controllers
             return Result<BoardTask>.Ok(task.Value);
         }
 
-        [HttpPatch]
+        [HttpPatch("UpdateTask")]
         public async Task<ActionResult<Result>> Update([FromBody] BoardTaskRequest taskRequest)
         {
             if (taskRequest.Id == null)
@@ -57,6 +57,18 @@ namespace tasking_api.Controllers
             }
 
             return Result.Ok();
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<Result<BoardTask>>> Delete(Guid id)
+        {
+            var res = await _taskService.DeleteTask(id);
+            if (!res.Success || res.Value == null)
+            {
+                return Result<BoardTask>.Fail("Could not delete specified task.");
+            }
+
+            return Result<BoardTask>.Ok(res.Value);
         }
     }
 }
