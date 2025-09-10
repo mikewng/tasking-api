@@ -1,4 +1,4 @@
-﻿using tasking_api.Main.Data;
+﻿using tasking_api.Main.Data.Contracts;
 using tasking_api.Main.Models;
 using tasking_api.Main.Service.Contracts;
 
@@ -6,11 +6,11 @@ namespace tasking_api.Main.Service
 {
     public class BoardService : IBoardService
     {
-        private readonly ISQLRepository _sqlRepository;
+        private readonly IBoardRepository _boardRepo;
 
-        public BoardService(ISQLRepository sqlRepository)
+        public BoardService(IBoardRepository boardRepository)
         {
-            _sqlRepository = sqlRepository;
+            _boardRepo = boardRepository;
         }
 
         public Task<Result<Board>> CreateBoard(string name, string description)

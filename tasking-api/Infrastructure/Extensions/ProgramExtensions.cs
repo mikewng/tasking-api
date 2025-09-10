@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using tasking_api.Infrastructure.Context;
+using tasking_api.Main.Data;
+using tasking_api.Main.Data.Contracts;
 using tasking_api.Main.Service;
 using tasking_api.Main.Service.Contracts;
 
@@ -12,17 +14,20 @@ namespace tasking_api.Infrastructure.Extensions
             // Database configuration
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseMySql(
+                options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
-                    ServerVersion.AutoDetect(configuration.GetConnectionString("DefaultConnection")),
-                    mysqlOptions =>
+                    sqlServerOptions =>
                     {
-                        mysqlOptions.EnableRetryOnFailure(
+                        sqlServerOptions.EnableRetryOnFailure(
                             maxRetryCount: 3,
                             maxRetryDelay: TimeSpan.FromSeconds(30),
                             errorNumbersToAdd: null);
                     });
             });
+
+            // Repository registrations
+            services.AddScoped<IBoardTaskRepository, BoardTaskRepository>();
+            services.AddScoped<IBoardRepository, BoardRepository>();
 
             // Service registrations
             services.AddScoped<IBoardService, BoardService>();
