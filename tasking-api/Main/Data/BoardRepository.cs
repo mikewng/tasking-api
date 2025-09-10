@@ -27,7 +27,7 @@ namespace tasking_api.Main.Data
 
         public Task RemoveAsync(Board board, CancellationToken ct)
         { 
-            _db.Boards.Remove(board); return Task.CompletedTask; 
+            _db.Boards.Remove(board); return Task.CompletedTask;
         }
     }
 }

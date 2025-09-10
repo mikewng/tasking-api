@@ -11,20 +11,6 @@ namespace tasking_api.Infrastructure.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
-            // Database configuration
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection"),
-                    sqlServerOptions =>
-                    {
-                        sqlServerOptions.EnableRetryOnFailure(
-                            maxRetryCount: 3,
-                            maxRetryDelay: TimeSpan.FromSeconds(30),
-                            errorNumbersToAdd: null);
-                    });
-            });
-
             // Repository registrations
             services.AddScoped<IBoardTaskRepository, BoardTaskRepository>();
             services.AddScoped<IBoardRepository, BoardRepository>();

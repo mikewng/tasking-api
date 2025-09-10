@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using tasking_api.Infrastructure.Context;
 using tasking_api.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddDbContext<AppDbContext>(opt =>
+    opt.UseMySql(builder.Configuration.GetConnectionString("MySql"),
+                 ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MySql"))));
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
