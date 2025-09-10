@@ -12,7 +12,7 @@ namespace tasking_api.Main.Service
             _boardTaskRepo = boardTaskRepository;
         }
 
-        public Task<Result<BoardTask>> CreateTask(BoardTask task)
+        public Task<Result<BoardTask>> CreateTask(BoardTaskRequest taskRequest)
         {
             throw new NotImplementedException();
         }

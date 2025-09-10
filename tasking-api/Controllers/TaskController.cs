@@ -41,5 +41,22 @@ namespace tasking_api.Controllers
 
             return Result<BoardTask>.Ok(task.Value);
         }
+
+        [HttpPatch]
+        public async Task<ActionResult<Result>> Update([FromBody] BoardTaskRequest taskRequest)
+        {
+            if (taskRequest.Id == null)
+            {
+                return Result.Fail("Could not find specified task with following ID.");
+            }
+
+            var res = await _taskService.UpdateTask(taskRequest);
+            if (!res.Success || res.Value == null)
+            {
+                return Result.Fail("Could not update specified task.");
+            }
+
+            return Result.Ok();
+        }
     }
 }

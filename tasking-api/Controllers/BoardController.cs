@@ -42,18 +42,18 @@ namespace tasking_api.Controllers
             return Result<Board>.Ok(board.Value);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Result>> Update([FromBody] BoardRequest board)
+        [HttpPatch]
+        public async Task<ActionResult<Result>> Update([FromBody] BoardRequest boardRequest)
         {
-            if (board.Id == null)
+            if (boardRequest.Id == null)
             {
-                return Result.Fail("Could not create this new board");
+                return Result.Fail("Could not find specified board with following ID.");
             }
 
-            var res = await _boardService.UpdateBoardInfo(board.Id.Value, board.Name, board.Description);
+            var res = await _boardService.UpdateBoardInfo(boardRequest);
             if (!res.Success || res.Value == null)
             {
-                return Result.Fail("Could not find board by given id.");
+                return Result.Fail("Could not update specified board.");
             }
 
             return Result.Ok();
