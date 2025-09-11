@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using tasking_api.Main.Models;
 using tasking_api.Main.Models.DTO.Request;
-using tasking_api.Main.Service;
 using tasking_api.Main.Service.Contracts;
 
 namespace tasking_api.Controllers

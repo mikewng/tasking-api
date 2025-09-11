@@ -99,9 +99,6 @@ namespace tasking_api.Main.Service
 
                 existingBoard.Name = boardRequest.Name.Trim();
                 existingBoard.Description = boardRequest.Description?.Trim();
-
-                // Note: Entity Framework will track changes automatically
-                // We would need SaveChangesAsync if using Unit of Work pattern
                 
                 return Result<Board>.Ok(existingBoard);
             }
