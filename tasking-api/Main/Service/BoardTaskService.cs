@@ -33,7 +33,7 @@ namespace tasking_api.Main.Service
                     Name = taskRequest.Name.Trim(),
                     Description = taskRequest.Description?.Trim() ?? string.Empty,
                     Deadline = taskRequest.Deadline,
-                    Status = BoardTaskStatus.NotStarted,
+                    TaskStatus = BoardTaskStatus.NotStarted,
                     CreatedAt = DateTime.UtcNow
                 };
 

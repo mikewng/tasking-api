@@ -5,9 +5,9 @@ namespace tasking_api.Infrastructure.Context
 {
     public sealed class AppDbContext : DbContext
     {
-        public DbSet<Board> Boards => Set<Board>();
-        public DbSet<BoardTask> BoardTasks => Set<BoardTask>();
-        public DbSet<User> Users => Set<User>();
+        public DbSet<Board> board => Set<Board>();
+        public DbSet<BoardTask> task => Set<BoardTask>();
+        public DbSet<User> user => Set<User>();
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -40,7 +40,7 @@ namespace tasking_api.Infrastructure.Context
                 entity.Property(t => t.Description).HasMaxLength(1000);
                 entity.Property(t => t.BoardId).IsRequired();
                 entity.Property(t => t.Deadline);
-                entity.Property(t => t.Status).IsRequired();
+                entity.Property(t => t.TaskStatus).IsRequired();
                 entity.Property(t => t.CreatedAt).IsRequired();
                 entity.Property(t => t.UpdatedAt);
             });

@@ -14,18 +14,18 @@ namespace tasking_api.Main.Data
 
         public async Task<BoardTask?> GetAsync(Guid id, CancellationToken ct)
         {
-            return await _db.BoardTasks
+            return await _db.task
                 .FirstOrDefaultAsync(t => t.Id == id, ct);
         }
 
         public async Task<IReadOnlyList<BoardTaskDto>> ListByBoardAsync(
             Guid boardId, CancellationToken ct, BoardTaskStatus? status = null, int skip = 0, int take = 50)
         {
-            var query = _db.BoardTasks.Where(t => t.BoardId == boardId);
+            var query = _db.task.Where(t => t.BoardId == boardId);
 
             if (status.HasValue)
             {
-                query = query.Where(t => t.Status == status.Value);
+                query = query.Where(t => t.TaskStatus == status.Value);
             }
 
             return await query
@@ -39,26 +39,27 @@ namespace tasking_api.Main.Data
                     Name = t.Name,
                     Description = t.Description,
                     Deadline = t.Deadline,
-                    Status = t.Status,
+                    Status = t.TaskStatus,
                     CreatedAt = t.CreatedAt,
                     UpdatedAt = t.UpdatedAt
                 })
                 .ToListAsync(ct);
         }
 
-        public Task AddAsync(BoardTask task, CancellationToken ct)
+        public async Task AddAsync(BoardTask task, CancellationToken ct)
         {
             task.CreatedAt = DateTime.UtcNow;
-            return _db.BoardTasks.AddAsync(task, ct).AsTask();
+            await _db.task.AddAsync(task, ct);
+            await _db.SaveChangesAsync(ct);
         }
 
-        public Task RemoveAsync(BoardTask task, CancellationToken ct)
+        public async Task RemoveAsync(BoardTask task, CancellationToken ct)
         {
-            _db.BoardTasks.Remove(task);
-            return Task.CompletedTask;
+            _db.task.Remove(task);
+            await _db.SaveChangesAsync(ct);
         }
 
         public Task<bool> ExistsAsync(Guid id, CancellationToken ct) =>
-            _db.Boards.AnyAsync(b => b.Id == id, ct);
+            _db.board.AnyAsync(b => b.Id == id, ct);
     }
 }

@@ -31,9 +31,9 @@ namespace tasking_api.Controllers
         }
 
         [HttpGet("GetTask/{id:guid}", Name = "GetTask")]
-        public async Task<ActionResult<Result<BoardTask>>> Get(Guid taskId)
+        public async Task<ActionResult<Result<BoardTask>>> Get(Guid id)
         {
-            var task = await _taskService.GetTask(taskId);
+            var task = await _taskService.GetTask(id);
             if (!task.Success || task.Value == null)
             {
                 return Result<BoardTask>.Fail("Could not find task by given id.");
