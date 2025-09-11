@@ -17,5 +17,17 @@ namespace tasking_api.Controllers
             var canConnect = await _db.Database.CanConnectAsync(ct);
             return canConnect ? Ok("Database OK") : StatusCode(500, "Database connection failed");
         }
+
+        [HttpPost("googleAuthLogin")]
+        public async Task<IActionResult> GoogleAuthLogin()
+        {
+            return Ok("Req sent");
+        }
+
+        [HttpPost("googleAuthCallback")]
+        public async Task<IActionResult> GoogleAuthCallback()
+        {
+            return Ok("Req sent");
+        }
     }
 }

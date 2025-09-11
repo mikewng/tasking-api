@@ -24,7 +24,6 @@ namespace tasking_api.Infrastructure.Context
                 entity.Property(b => b.Description).HasMaxLength(1000);
                 entity.Property(b => b.OwnerId).IsRequired();
                 
-                // One-to-many relationship: Board has many BoardTasks
                 entity.HasMany(b => b.Tasks)
                       .WithOne()
                       .HasForeignKey(t => t.BoardId)
@@ -56,7 +55,6 @@ namespace tasking_api.Infrastructure.Context
                 entity.Property(u => u.CreatedAt).IsRequired();
                 entity.Property(u => u.LastLoginAt);
                 
-                // Unique constraints
                 entity.HasIndex(u => u.Username).IsUnique();
                 entity.HasIndex(u => u.Email).IsUnique();
             });
