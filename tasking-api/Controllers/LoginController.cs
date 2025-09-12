@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using tasking_api.Infrastructure.Context;
 using tasking_api.Main.Models.DTO.Request;
+using tasking_api.Main.Service.Contracts;
 
 namespace tasking_api.Controllers
 {
@@ -10,11 +11,13 @@ namespace tasking_api.Controllers
     {
 
         private readonly ILogger<LoginController> _logger;
+        private readonly IAuthService _authService;
         private readonly AppDbContext _db;
 
-        public LoginController(ILogger<LoginController> logger, AppDbContext db)
+        public LoginController(ILogger<LoginController> logger, IAuthService authService, AppDbContext db)
         {
             _logger = logger;
+            _authService = authService;
             _db = db;
         }
 
@@ -24,12 +27,11 @@ namespace tasking_api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok();
-            //var result = await _authService.LoginAsync(request, ct);
+            var result = await _authService.LoginAsync(request, ct);
 
-            //return result.IsSuccess
-            //    ? Ok(result.Value)
-            //    : BadRequest(result.ErrorMessage);
+            return result.Success
+                ? Ok()
+                : BadRequest(result.Error);
         }
 
         [HttpPost("register")]
@@ -38,12 +40,11 @@ namespace tasking_api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok();
-            //var result = await _authService.RegisterAsync(request, ct);
+            var result = await _authService.RegisterAsync(request, ct);
 
-            //return result.IsSuccess
-            //    ? CreatedAtAction(nameof(Login), result.Value)
-            //    : BadRequest(result.ErrorMessage);
+            return result.Success
+                ? Ok()
+                : BadRequest(result.Error);
         }
 
         [HttpGet("db")]
