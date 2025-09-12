@@ -8,7 +8,7 @@ namespace tasking_api.Infrastructure.Context
         public DbSet<Board> board => Set<Board>();
         public DbSet<BoardTask> task => Set<BoardTask>();
         public DbSet<BoardTaskTag> taskTag => Set<BoardTaskTag>();
-        public DbSet<User> user => Set<User>();
+        public DbSet<User> user_account => Set<User>();
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 

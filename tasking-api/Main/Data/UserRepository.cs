@@ -1,4 +1,5 @@
-﻿using tasking_api.Infrastructure.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using tasking_api.Infrastructure.Context;
 using tasking_api.Main.Data.Contracts;
 using tasking_api.Main.Models;
 
@@ -13,39 +14,43 @@ namespace tasking_api.Main.Data
             _context = context;
         }
 
-        public Task<User> CreateAsync(User user, CancellationToken ct = default)
+        public async Task<User> CreateAsync(User user, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            _context.user_account.Add(user);
+            await _context.SaveChangesAsync(ct);
+            return user;
         }
 
-        public Task<bool> EmailExistsAsync(string email, CancellationToken ct = default)
+        public async Task<bool> EmailExistsAsync(string email, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            return await _context.user_account.AnyAsync(u => u.Email == email, ct);
         }
 
-        public Task<User?> GetByEmailAsync(string email, CancellationToken ct = default)
+        public async Task<User?> GetByEmailAsync(string email, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            return await _context.user_account.FirstOrDefaultAsync(u => u.Email == email, ct);
         }
 
-        public Task<User?> GetByIdAsync(Guid id, CancellationToken ct = default)
+        public async Task<User?> GetByIdAsync(Guid id, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            return await _context.user_account.FirstOrDefaultAsync(u => u.Id == id, ct);
         }
 
-        public Task<User?> GetByUsernameAsync(string username, CancellationToken ct = default)
+        public async Task<User?> GetByUsernameAsync(string username, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            return await _context.user_account.FirstOrDefaultAsync(u => u.Username == username, ct);
         }
 
-        public Task<User> UpdateAsync(User user, CancellationToken ct = default)
+        public async Task<User> UpdateAsync(User user, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            _context.user_account.Update(user);
+            await _context.SaveChangesAsync(ct);
+            return user;
         }
 
-        public Task<bool> UsernameExistsAsync(string username, CancellationToken ct = default)
+        public async Task<bool> UsernameExistsAsync(string username, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            return await _context.user_account.AnyAsync(u => u.Username == username, ct);
         }
     }
 }
