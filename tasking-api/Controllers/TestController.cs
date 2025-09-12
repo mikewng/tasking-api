@@ -5,6 +5,8 @@ using tasking_api.Main.Service.Contracts;
 namespace tasking_api.Controllers
 {
     // DEBUG USE ONLY
+    [ApiController]
+    [Route("[controller]")]
     public class TestController : ControllerBase
     {
         private readonly ILogger<LoginController> _logger;
