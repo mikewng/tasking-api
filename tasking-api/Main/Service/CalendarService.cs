@@ -3,7 +3,7 @@ using tasking_api.Main.Service.Contracts;
 
 namespace tasking_api.Main.Service
 {
-    public class GoogleCalendarService : ICalendarService
+    public class CalendarService : ICalendarService
     {
         public Task<Result<string>> AddCalendar()
         {
