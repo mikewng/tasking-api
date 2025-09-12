@@ -7,6 +7,7 @@ namespace tasking_api.Infrastructure.Context
     {
         public DbSet<Board> board => Set<Board>();
         public DbSet<BoardTask> task => Set<BoardTask>();
+        public DbSet<BoardTaskTag> taskTag => Set<BoardTaskTag>();
         public DbSet<User> user => Set<User>();
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
@@ -42,6 +43,15 @@ namespace tasking_api.Infrastructure.Context
                 entity.Property(t => t.TaskStatus).IsRequired();
                 entity.Property(t => t.CreatedAt).IsRequired();
                 entity.Property(t => t.UpdatedAt);
+            });
+
+            // BoardTaskTag configuration
+            modelBuilder.Entity<BoardTaskTag>(entity =>
+            {
+                entity.HasKey(t => t.IdTask_Tag);
+                entity.Property(t => t.IdTask_Tag).ValueGeneratedOnAdd();
+                entity.Property(t => t.TaskId).IsRequired();
+                entity.Property(t => t.TagValue).IsRequired().HasMaxLength(200);
             });
 
             // User configuration
