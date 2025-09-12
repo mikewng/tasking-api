@@ -47,13 +47,6 @@ namespace tasking_api.Controllers
                 : BadRequest(result.Error);
         }
 
-        [HttpGet("db")]
-        public async Task<IActionResult> CheckDb(CancellationToken ct)
-        {
-            var canConnect = await _db.Database.CanConnectAsync(ct);
-            return canConnect ? Ok("Database OK") : StatusCode(500, "Database connection failed");
-        }
-
         [HttpPost("googleAuthLogin")]
         public async Task<IActionResult> GoogleAuthLogin()
         {
