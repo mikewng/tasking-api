@@ -2,8 +2,8 @@
 {
     public class BoardTaskTag
     {
-        public required string IdTask_Tag { get; set; }
-        public required string TaskId { get; set; }
-        public required string TagValue { get; set; }
+        public required Guid IdTask_Tag { get; set; }
+        public required Guid TaskParent_Id { get; set; }
+        public required string Tag_Value { get; set; }
     }
 }

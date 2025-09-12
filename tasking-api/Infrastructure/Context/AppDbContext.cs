@@ -43,6 +43,11 @@ namespace tasking_api.Infrastructure.Context
                 entity.Property(t => t.TaskStatus).IsRequired();
                 entity.Property(t => t.CreatedAt).IsRequired();
                 entity.Property(t => t.UpdatedAt);
+
+                entity.HasMany(t => t.Tags)
+                    .WithOne()
+                    .HasForeignKey(t => t.TaskParent_Id)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // BoardTaskTag configuration
@@ -50,8 +55,8 @@ namespace tasking_api.Infrastructure.Context
             {
                 entity.HasKey(t => t.IdTask_Tag);
                 entity.Property(t => t.IdTask_Tag).ValueGeneratedOnAdd();
-                entity.Property(t => t.TaskId).IsRequired();
-                entity.Property(t => t.TagValue).IsRequired().HasMaxLength(200);
+                entity.Property(t => t.TaskParent_Id).IsRequired();
+                entity.Property(t => t.Tag_Value).IsRequired().HasMaxLength(200);
             });
 
             // User configuration

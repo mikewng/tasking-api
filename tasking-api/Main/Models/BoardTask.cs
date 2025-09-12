@@ -10,5 +10,6 @@
         public BoardTaskStatus TaskStatus { get; set; } = BoardTaskStatus.NotStarted;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
+        public List<BoardTaskTag> Tags { get; set; } = new List<BoardTaskTag>();
     }
 }
