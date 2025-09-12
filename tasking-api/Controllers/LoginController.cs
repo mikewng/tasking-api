@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using tasking_api.Infrastructure.Context;
+using tasking_api.Main.Models.DTO.Request;
 
 namespace tasking_api.Controllers
 {
@@ -7,9 +8,43 @@ namespace tasking_api.Controllers
     [Route("[controller]")]
     public class LoginController : ControllerBase
     {
+
+        private readonly ILogger<LoginController> _logger;
         private readonly AppDbContext _db;
 
-        public LoginController(AppDbContext db) => _db = db;
+        public LoginController(ILogger<LoginController> logger, AppDbContext db)
+        {
+            _logger = logger;
+            _db = db;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken ct)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok();
+            //var result = await _authService.LoginAsync(request, ct);
+
+            //return result.IsSuccess
+            //    ? Ok(result.Value)
+            //    : BadRequest(result.ErrorMessage);
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken ct)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok();
+            //var result = await _authService.RegisterAsync(request, ct);
+
+            //return result.IsSuccess
+            //    ? CreatedAtAction(nameof(Login), result.Value)
+            //    : BadRequest(result.ErrorMessage);
+        }
 
         [HttpGet("db")]
         public async Task<IActionResult> CheckDb(CancellationToken ct)
