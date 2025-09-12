@@ -2,6 +2,8 @@
 using tasking_api.Infrastructure.Context;
 using tasking_api.Main.Data;
 using tasking_api.Main.Data.Contracts;
+using tasking_api.Main.Secure;
+using tasking_api.Main.Secure.Contracts;
 using tasking_api.Main.Service;
 using tasking_api.Main.Service.Contracts;
 
@@ -14,10 +16,15 @@ namespace tasking_api.Infrastructure.Extensions
             // Repository registrations
             services.AddScoped<IBoardTaskRepository, BoardTaskRepository>();
             services.AddScoped<IBoardRepository, BoardRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             // Service registrations
             services.AddScoped<IBoardService, BoardService>();
             services.AddScoped<IBoardTaskService, BoardTaskService>();
+            services.AddScoped<IAuthService, AuthService>();
+
+            // Security registrations
+            services.AddScoped<IUserSecure, UserSecure>();
 
             return services;
         }
