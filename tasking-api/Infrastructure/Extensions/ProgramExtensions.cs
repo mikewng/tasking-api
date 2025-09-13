@@ -6,6 +6,7 @@ using tasking_api.Main.Secure;
 using tasking_api.Main.Secure.Contracts;
 using tasking_api.Main.Service;
 using tasking_api.Main.Service.Contracts;
+using tasking_api.Main.Service.Providers;
 
 namespace tasking_api.Infrastructure.Extensions
 {
@@ -22,6 +23,12 @@ namespace tasking_api.Infrastructure.Extensions
             services.AddScoped<IBoardService, BoardService>();
             services.AddScoped<IBoardTaskService, BoardTaskService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<ICalendarService, CalendarService>();
+
+            // Calendar Provider registrations
+            services.AddScoped<ICalendarProvider, GoogleCalendarProvider>();
+            // services.AddScoped<ICalendarProvider, OutlookCalendarProvider>(); // Add when implemented
+            services.AddScoped<ICalendarProviderFactory, CalendarProviderFactory>();
 
             // Security registrations
             services.AddScoped<IUserSecure, UserSecure>();
